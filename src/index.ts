@@ -1,4 +1,4 @@
-import Roact from "@rbxts/roact";
+import React from "@rbxts/react";
 import { motion } from "./motion";
 import useAnimation from "./useAnimation";
 
@@ -23,7 +23,8 @@ export interface WithAnimationProps<T extends GuiObject & Record<string, unknown
     initial?: keyof AnimationVariants<T> | (Partial<T> & { transition?: Partial<AnimationTransition> });
     animate?: keyof AnimationVariants<T> | (Partial<T> & { transition?: Partial<AnimationTransition> });
     transition?: Partial<AnimationTransition>;
-    ref?: Roact.Ref<T>;
+    ref?: React.Ref<T>;
 }
+
 
 export { motion, useAnimation };

@@ -1,10 +1,10 @@
 {
-  "name": "@rbxts/motion",
+  "name": "@rbxts/react-motion",
   "version": "0.0.1d",
   "author": "yayashn",
   "description": "",
   "main": "out/init.lua",
-  "repository": "https://github.com/yayashn/motion",
+  "repository": "https://github.com/GISOjinga/react-motion",
   "scripts": {
     "build": "rbxtsc",
     "watch": "rbxtsc -w",
@@ -21,21 +21,18 @@
     "access": "public"
   },
   "devDependencies": {
-    "@rbxts/compiler-types": "2.0.4-types.1",
-    "@rbxts/types": "^1.0.675",
-    "@typescript-eslint/eslint-plugin": "^5.57.1",
-    "@typescript-eslint/parser": "^5.57.1",
-    "eslint": "^8.38.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-roblox-ts": "^0.0.35",
-    "prettier": "^2.8.7",
-    "typescript": "^5.0.4"
+    "@rbxts/compiler-types": "^2.3.0-types.0",
+    "@rbxts/types": "^1.0.754",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-roblox-ts": "^0.0.36",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@rbxts/object-utils": "^1.0.4",
-    "@rbxts/roact": "1.4.4-ts.0",
-    "@rbxts/roact-hooked": "^2.3.3",
-    "@rbxts/services": "^1.5.1"
+    "@rbxts/react-roblox": "^0.3.1",
   }
 }

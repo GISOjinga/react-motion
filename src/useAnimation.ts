@@ -1,13 +1,12 @@
 import Object from '@rbxts/object-utils'
-import Roact from '@rbxts/roact'
-import { useEffect, useState } from '@rbxts/roact-hooked'
+import React, { useEffect, useState } from '@rbxts/react'
 import { TweenService } from '@rbxts/services'
 import { AnimationTransition, AnimationVariants } from '.'
 
 
 export default function useAnimation<T extends Instance>(
     variants: AnimationVariants<T>,
-    ref: Roact.Ref<T>,
+    ref: React.RefObject<T>,
     initial?:
         | keyof AnimationVariants<T>
         | (Partial<T> & {
@@ -26,6 +25,8 @@ export default function useAnimation<T extends Instance>(
               transition?: Partial<AnimationTransition>
           })
     >();
+
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const currentVariant = typeIs(variantState, 'string') ? variants[variantState] : variantState
     const animationVariant =
         animate !== undefined
@@ -33,10 +34,12 @@ export default function useAnimation<T extends Instance>(
                 ? variants[animate]
                 : animate
             : currentVariant
-
+    
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     let animationProperties: Partial<T> = {}
     let mergedTransition: Partial<AnimationTransition> = {}
-
+    
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     if(animationVariant) {
         animationProperties = Object.entries(animationVariant)
         .filter(([key]) => key !== 'transition')
@@ -50,8 +53,10 @@ export default function useAnimation<T extends Instance>(
             ...transition
         }
     }
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
-        const element = ref.getValue()
+        const element = ref.current
         if(!element) return
 
         Object.entries(initial ?? {}).forEach(([key, value]) => {

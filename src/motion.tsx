@@ -1,40 +1,36 @@
-import Object from "@rbxts/object-utils";
-import Roact from "@rbxts/roact";
+import React, { useRef } from "@rbxts/react";
 import useAnimation from "./useAnimation";
-import { withHooks } from "@rbxts/roact-hooked";
 import { WithAnimationProps } from ".";
+
 
 function withAnimation<T extends keyof JSX.IntrinsicElements>(
   elementType: T
 ): (
   props: JSX.IntrinsicElements[T] & WithAnimationProps<GuiObject & Record<string, unknown>>
-) => Roact.Element {
-  return withHooks((
-    props: JSX.IntrinsicElements[T] & WithAnimationProps<GuiObject & Record<string, unknown>>
-  ) => {
-    const { initial, animate, transition, variants } = props;
-    const ref = Roact.createRef<GuiObject & Record<string, unknown>>();
+) => React.Element {
+  return (props) => {
+    const { initial, animate, transition, variants, ref: refProp } = props;
+    const ref = refProp || useRef<GuiObject & Record<string, unknown>>(undefined);
     const [, setVariant] = useAnimation<GuiObject & Record<string, unknown>>(
       variants ?? {},
-      props.ref ?? ref,
+      ref as React.RefObject<GuiObject & Record<string, unknown>>,
       initial,
       animate,
       transition
     );
-    const rest = Object.fromEntries(
-      Object.entries(props).filter(
-        ([key]) =>
-          !["initial", "animate", "transition", "variants", "ref"].includes(
-            key as unknown as string
-          )
-      ) as readonly (readonly [string | number | symbol, unknown])[]
-    ) as JSX.IntrinsicElements[T];
 
-    return Roact.createElement(elementType as keyof CreatableInstances, { 
-        ...rest as JSX.IntrinsicElements[T], 
-        [Roact.Ref]: props.ref ?? ref,
-      });
-  });
+    
+    const newReturn: {[key: string]: unknown} = {ref};
+
+    // Loop through props
+    for (const [key, value] of pairs(props)) {
+      if (key === "initial" || key === "animate" || key === "transition" || key === "variants" || key === "ref") continue;
+      newReturn[key as never] = value;
+    }
+    
+    print(props, newReturn, { Text:"asdsadsad" }) 
+    return React.createElement(elementType, newReturn);
+  };
 }
 
 export const motion = {
